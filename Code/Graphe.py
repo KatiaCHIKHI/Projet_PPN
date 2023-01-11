@@ -125,3 +125,21 @@ class Graphe:
                   
        return gj
 
+
+#fontion pour le tri d'une liste selon une autre 
+def sort_items(items, order):
+    return sorted(items, key=lambda x: order.index(x))
+
+#fonction pour le filtrage de T
+def filter_lists(lists):
+    filtered_lists = []
+    for lst in lists:
+        include = True
+        for lst2 in filtered_lists:
+            if set(lst).issubset(set(lst2)):
+                include = False
+                break
+        if include:
+            filtered_lists.append(lst)
+    return filtered_lists
+
