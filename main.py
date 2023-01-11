@@ -93,6 +93,38 @@ class Graphe:
                 break
         print("the degeneracy of the graph is : ",k)
 
+    #graph GJ
+    def find_Gj(self,j):
+       gj= Graphe()
+       list_voisinage = []
+       Vi = []
+       vertex_order = -1
+       # calcul N[vi]
+       list_voisinage.append(self.getSommets()[j])
+       for s in self.gdict[self.getSommets()[j]]:
+        list_voisinage.append(s)
+       #calcul Vi
+       ordre = self.degeneracy_ordering()
+       for i in range(len(self.degeneracy_ordering())):
+        if( ordre[i] == self.getSommets()[j]):
+            vertex_order = i
+        if(vertex_order != -1):
+            Vi.append(ordre[i] )
+        
+        #N[vi] inter Vi
+        for v1 in list_voisinage:
+            for v2 in Vi:
+                if v1 == v2 :
+                    gj.addSommet(v1)
+        #ajout des arcs reliants            
+        for som in gj.getSommets():
+            for som_voisin in self.gdict[som]:
+                if (som_voisin in gj.getSommets()) and (som_voisin not in gj.gdict[som]):
+                    gj.gdict[som].append(som_voisin)
+                    
+                  
+       return gj
+
 #########################################################################################################
 
 # Graph
@@ -118,6 +150,8 @@ o=g.degeneracy_ordering()
 
 print("order of degeneracy is ",o)
 g.degeneracy()
+
+print("graph g0", g.find_Gj(0))
 
 
 
